@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 class BooksShelf extends Component{
  render(){
           return <div className="bookshelf">
-                    <h1 className="bookshelf-title">{this.props.bookShelfTitle}</h1>
                     <ul className="books-grid">
                      {this.props.books.map((book) =>
                        (<li key={book.id} className="book">
@@ -12,7 +11,7 @@ class BooksShelf extends Component{
                               <img src={book.imageLinks.thumbnail} className="book-cover" alt={book.title}/>
                             </picture>
                             <button className="book-shelf-changer">
-                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={this.props.bookShelfType}>
+                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={book.shelf}>
                                     <option value="Move to" disabled="true">Move to</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead"> Want to Read</option>
@@ -22,7 +21,7 @@ class BooksShelf extends Component{
                             </button>
                           </div>
                           <div className="book-title"><strong>{book.title}</strong></div>
-                          {book.authors.map((author) =>(<div key={author} className="book-authors"><strong>{author}</strong></div>))}
+                            {Array.isArray(book.authors)&&(book.authors.map((author) =>(<div key={author} className="book-authors"><strong>{author}</strong></div>)))}
                           </li>
                         )
                       )
