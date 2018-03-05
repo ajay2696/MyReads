@@ -4,16 +4,28 @@ import BooksShelf from './BooksShelf';
 import * as BooksAPI from './BooksAPI';
 class App extends Component {
   state={
-          allBooks:[],
-          currentlyReadingBooks:[],
-          wantToReadBooks:[]
+          allBooks:[]
         }
   componentDidMount=()=>{
     BooksAPI.getAll().then((books) =>{
-      this.setState({allBooks:books,
-                     currentlyReadingBooks:books.filter(book => book.shelf==='currentlyReading'),
-                     wantToReadBooks:books.filter(book => book.shelf==='wantToRead')});
+      this.setState({allBooks:books  })
     });
+  }
+  onBookShelfChange=(e,book)=>{
+    let bookShelfName =e.target.value;
+    BooksAPI.update(book,bookShelfName);
+    this.setState((state) =>
+                            ({allBooks:state.allBooks.map((b) =>
+                                                               {if(b.id === book.id) {
+                                                                    b.shelf=bookShelfName;
+                                                                  }
+                                                                return b;
+                                                                }
+                                                              )
+                             })
+                  );
+    console.log(this.state.allBooks);
+
   }
   render() {
     return (
@@ -21,12 +33,18 @@ class App extends Component {
         <header className="list-books-title">
           <h1>MyReads</h1>
         </header>
-        <h1 className="bookshelf-title">Currently Reading</h1>
-        <BooksShelf books={this.state.allBooks.filter(book => book.shelf==='currentlyReading')}/>
-        <h1 className="bookshelf-title">Want to Read</h1>
-        <BooksShelf books={this.state.allBooks.filter(book => book.shelf==='wantToRead')}/>
-        <h1 className="bookshelf-title">Read</h1>
-        <BooksShelf books={this.state.allBooks.filter(book => book.shelf==='read')}/>
+        <BooksShelf bookShelfType='currentlyReading'
+                    bookShelfTitle='Currently Reading'
+                    books={this.state.allBooks.filter(book => book.shelf==='currentlyReading')}
+                    onBookShelfChange={this.onBookShelfChange} />
+        <BooksShelf bookShelfType='wantToRead'
+                    bookShelfTitle='Want to Read'
+                    books={this.state.allBooks.filter(book => book.shelf==='wantToRead')}
+                    onBookShelfChange={this.onBookShelfChange} />
+        <BooksShelf bookShelfType='read'
+                    bookShelfTitle='Read'
+                    books={this.state.allBooks.filter(book => book.shelf==='read')}
+                    onBookShelfChange={this.onBookShelfChange} />
       </div>
     );
   }

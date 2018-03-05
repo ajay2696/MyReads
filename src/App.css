@@ -174,3 +174,7 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+.selectedItem {
+   content: "\2713";
+}
