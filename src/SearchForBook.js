@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
-import BooksShelf from './BooksShelf';
+import BooksList from './BooksList';
 import * as BooksAPI from './BooksAPI';
+import {Link} from 'react-router-dom';
 class SearchForBook extends Component{
 state={
   books:[]
@@ -16,14 +17,18 @@ SearchForBook=(query)=>{
   });
 }
 render(){
-        return <div className="search-books-bar">
-                  <input type="text" className="search-books-bar" placeholder="Seach by Author Name or Title"
+        return <div >
+                  <div className ="search-books-bar" >
+                  <Link to="/" className="close-search">Close Search </Link>
+                  <input type="text" placeholder="Seach by Author Name or Title"
                                      value ={this.state.query}
                                      onChange={(event)=>this.SearchForBook(event.target.value)} />
-                  <BooksShelf books={this.state.books} onBookShelfChange={this.props.onBookShelfChange} />
+                  </div>
+                  <div className="search-books-results">
+                  <BooksList books={this.state.books} onBookShelfChange={this.onBookShelfChange} />
+                  </div>
                </div>
 
 }
 }
-
 export default SearchForBook

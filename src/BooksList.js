@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-class BooksShelf extends Component{
+class BooksList extends Component{
  render(){
-          return <div className="bookshelf">
+          return   <div>
                     <ul className="books-grid">
                      {this.props.books.map((book) =>
                        (<li key={book.id} className="book">
@@ -11,7 +11,7 @@ class BooksShelf extends Component{
                               <img src={book.imageLinks.thumbnail} className="book-cover" alt={book.title}/>
                             </picture>
                             <button className="book-shelf-changer">
-                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={book.shelf}>
+                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={book.shelf} defaultValue="Move to">
                                     <option value="Move to" disabled="true">Move to</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead"> Want to Read</option>
@@ -31,4 +31,4 @@ class BooksShelf extends Component{
          }
 }
 
-export default BooksShelf
+export default BooksList
