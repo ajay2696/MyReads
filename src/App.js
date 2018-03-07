@@ -14,20 +14,23 @@ class App extends Component {
     });
   }
   onBookShelfChange=(e,book)=>{
-    let bookShelfName =e.target.value;
-    BooksAPI.update(book,bookShelfName);
-    let books =this.state.selectedBooks.filter((b) => b.id!=book.id );
-    let newBook1 =book;
-    newBook1.shelf =bookShelfName;
-    books.push(newBook1);
-    this.setState({selectedBooks:books});
+    var newBook1 =Object.assign({}, book);
+    newBook1.shelf=e.target.value;
+
+    BooksAPI.update(book,e.target.value).then(()=>{
+          console.log(newBook1);
+          this.setState((state) => ({selectedBooks:state.selectedBooks.filter((b) => b.id!=book.id ).concat(newBook1)}));
+      });
+
   }
 
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={(history)=>( <HomePage selectedBooks={this.state.selectedBooks}
-                                                       onBookShelfChange={this.onBookShelfChange}
+        <Route exact path='/' render={(history)=>(<HomePage selectedBooks={this.state.selectedBooks}
+                                                            onBookShelfChange={(e,book) => {
+                                                              this.onBookShelfChange(e,book);
+                                                            }}
                                             />
                                             )}
         />

@@ -2,8 +2,11 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import BooksList from './BooksList';
 
-class HomePage extends Component {
-render(){ return <div>
+class HomePage extends Component
+{
+render(){
+  console.log(this.props.selectedBooks);
+  return <div>
                     <header className="list-books-title">
                       <h1>MyReads</h1>
                     </header>
@@ -24,6 +27,7 @@ render(){ return <div>
                                 onBookShelfChange={this.props.onBookShelfChange} />
                     </div>
                   </div>;
-}
+
+        }
 }
 export default HomePage
