@@ -4,19 +4,38 @@ import * as BooksAPI from './BooksAPI';
 import {Link} from 'react-router-dom';
 class SearchForBook extends Component{
 state={
-  books:[]
+  searchResultBooks:[]
 }
 SearchForBook=(query)=>{
-  const books =BooksAPI.search(query).then((results)=>{
-    console.log(results);
-    if(Array.isArray(results)){
-        this.setState({books:results});
-    } else {
-    this.setState({books:[]});
-    }
-  });
+  if(query ===''){
+      this.setState({searchResultBooks:[]});
+  } else {
+      const books =BooksAPI.search(query).then((results)=>{
+                                                        console.log(results);
+                                                        if(Array.isArray(results)){
+                                                            this.setState({searchResultBooks:results});
+                                                        } else {
+                                                        this.setState({searchResultBooks:[]});
+                                                        }
+                                              });
+  }
 }
 render(){
+        const searchResultBooks = this.state.searchResultBooks;
+        const selectedBooks = this.props.selectedBooks;
+
+          for(let i=0;i<searchResultBooks.length;i++){
+              searchResultBooks[i].shelf ='none';
+            for(let j=0;j<selectedBooks.length;j++){
+               if( searchResultBooks[i].id === selectedBooks[j].id){
+                  searchResultBooks[i].shelf = selectedBooks[j].shelf;
+               }
+              }
+              if(searchResultBooks[i].imageLinks===undefined){
+                searchResultBooks[i].imageLinks ={thumbnail:''};
+              }
+            }
+
         return <div >
                   <div className ="search-books-bar" >
                   <Link to="/" className="close-search">Close Search </Link>
@@ -25,7 +44,7 @@ render(){
                                      onChange={(event)=>this.SearchForBook(event.target.value)} />
                   </div>
                   <div className="search-books-results">
-                  <BooksList books={this.state.books} onBookShelfChange={this.onBookShelfChange} />
+                  <BooksList books={searchResultBooks} onBookShelfChange={this.props.onBookShelfChange} />
                   </div>
                </div>
 

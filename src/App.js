@@ -6,47 +6,36 @@ import SearchForBook from './SearchForBook';
 import HomePage from './HomePage'
 class App extends Component {
   state={
-          allBooks:[]
+          selectedBooks:[]
         }
   componentDidMount=()=>{
     BooksAPI.getAll().then((books) =>{
-      this.setState({allBooks:books  })
+      this.setState({selectedBooks:books})
     });
   }
   onBookShelfChange=(e,book)=>{
     let bookShelfName =e.target.value;
     BooksAPI.update(book,bookShelfName);
-    if(!this.state.allBooks.includes(book)){
-      this.setState((state) =>
-                              ({allBooks:state.allBooks.concat(Object.assign(book, {shelf:bookShelfName}))
-                               })
-                    );
-    } else {
-      this.setState((state) =>
-                              ({allBooks:state.allBooks.map((b) =>
-                                                                 {if(b.id === book.id) {
-                                                                      b.shelf=bookShelfName;
-                                                                    }
-                                                                  return b;
-                                                                  }
-                                                                )
-                               })
-                    );
-    }
-
-    console.log(this.state.allBooks);
-
+    let books =this.state.selectedBooks.filter((b) => b.id!=book.id );
+    let newBook1 =book;
+    newBook1.shelf =bookShelfName;
+    books.push(newBook1);
+    this.setState({selectedBooks:books});
   }
 
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={()=>(
-                                          <HomePage onBookShelfChange={this.onBookShelfChange} allBooks={this.state.allBooks}/>
-                                          )}
+        <Route exact path='/' render={(history)=>( <HomePage selectedBooks={this.state.selectedBooks}
+                                                       onBookShelfChange={this.onBookShelfChange}
+                                            />
+                                            )}
         />
-        <Route path='/search' render={()=>(
-                                            <SearchForBook onBookShelfChange={this.onBookShelfChange} books={this.state.allBooks}/>
+        <Route path='/search' render={({history})=>(
+                                            <SearchForBook selectedBooks={this.state.selectedBooks}
+                                                           onBookShelfChange={(e,book) => {
+                                                             this.onBookShelfChange(e,book);
+                                                           }} />
                                           )}
         />
       </div>

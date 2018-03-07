@@ -11,12 +11,12 @@ class BooksList extends Component{
                               <img src={book.imageLinks.thumbnail} className="book-cover" alt={book.title}/>
                             </picture>
                             <button className="book-shelf-changer">
-                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={book.shelf} defaultValue="Move to">
-                                    <option value="Move to" disabled="true">Move to</option>
+                                  <select onChange={(e)=>this.props.onBookShelfChange(e,book)} value={book.shelf}>
+                                    <option value="moveTo" disabled="true">Move to</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead"> Want to Read</option>
                                     <option value="read" >Read</option>
-                                    <option value="None">None</option>
+                                    <option value="none">None</option>
                                   </select>
                             </button>
                           </div>
