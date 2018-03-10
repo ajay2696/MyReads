@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 class BooksList extends Component{
  render(){
-          return   <div>
-                    <ul className="books-grid">
+          return (<div>
+                   <ul className="books-grid">
                      {this.props.books.map((book) =>
                        (<li key={book.id} className="book">
                          <div className="book-top">
@@ -19,16 +19,22 @@ class BooksList extends Component{
                                     <option value="none">None</option>
                                   </select>
                             </button>
-                          </div>
-                          <div className="book-title"><strong>{book.title}</strong></div>
-                            {Array.isArray(book.authors)&&(book.authors.map((author) =>(<div key={author} className="book-authors"><strong>{author}</strong></div>)))}
-                          </li>
+                           </div>
+                           <div className="book-title"><strong>{book.title}</strong></div>
+                            {Array.isArray(book.authors)&&(book.authors.map((author) =>(
+                                                            <div key={author}
+                                                                  className="book-authors">
+                                                              <strong>{author}</strong>
+                                                            </div>)
+                                                          ))
+                            }
+                        </li>
                         )
-                      )
-                    }
+                       )
+                     }
                     </ul>
-                 </div>;
+                 </div>);
          }
-}
+    }
 
 export default BooksList

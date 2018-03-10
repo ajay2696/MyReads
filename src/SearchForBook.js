@@ -36,7 +36,7 @@ render(){
               }
             }
 
-        return <div >
+        return (<div >
                   <div className ="search-books-bar" >
                   <Link to="/" className="close-search">Close Search </Link>
                   <input type="text" placeholder="Seach by Author Name or Title"
@@ -46,8 +46,7 @@ render(){
                   <div className="search-books-results">
                   <BooksList books={searchResultBooks} onBookShelfChange={this.props.onBookShelfChange} />
                   </div>
-               </div>
-
-}
+               </div>);
+      }
 }
 export default SearchForBook

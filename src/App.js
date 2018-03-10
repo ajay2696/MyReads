@@ -9,40 +9,36 @@ class App extends Component {
           selectedBooks:[]
         }
   componentDidMount=()=>{
-    BooksAPI.getAll().then((books) =>{
-      this.setState({selectedBooks:books})
-    });
+  BooksAPI.getAll().then((books) =>{this.setState({selectedBooks:books})});
   }
   onBookShelfChange=(e,book)=>{
-    var newBook1 =Object.assign({}, book);
+    let newBook1 =Object.assign({}, book);
     newBook1.shelf=e.target.value;
-
-    BooksAPI.update(book,e.target.value).then(()=>{
-          console.log(newBook1);
-          this.setState((state) => ({selectedBooks:state.selectedBooks.filter((b) => b.id!=book.id ).concat(newBook1)}));
-      });
+    BooksAPI.update(book,e.target.value).then(()=>
+                                              {console.log(newBook1);
+                                               this.setState((state) =>(
+                                                              {selectedBooks:state.selectedBooks.filter((b)=>b.id!=book.id ).concat(newBook1)}
+                                                            ));
+                                              });
 
   }
 
-  render() {
-    return (
-      <div className="app">
-        <Route exact path='/' render={(history)=>(<HomePage selectedBooks={this.state.selectedBooks}
-                                                            onBookShelfChange={(e,book) => {
-                                                              this.onBookShelfChange(e,book);
-                                                            }}
-                                            />
-                                            )}
-        />
-        <Route path='/search' render={({history})=>(
-                                            <SearchForBook selectedBooks={this.state.selectedBooks}
-                                                           onBookShelfChange={(e,book) => {
-                                                             this.onBookShelfChange(e,book);
-                                                           }} />
-                                          )}
-        />
-      </div>
-    );
+  render(){
+    return (<div className="app">
+              <Route exact path='/'
+                     render={(history)=>(<HomePage selectedBooks={this.state.selectedBooks}
+                                                   onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book);}}
+                                          />)
+                              }
+              />
+              <Route path='/search'
+                     render={({history})=>(<SearchForBook selectedBooks={this.state.selectedBooks}
+                                                          onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book);}}
+                                            />)
+                            }
+              />
+            </div>
+          );
   }
 }
 

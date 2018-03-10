@@ -5,8 +5,7 @@ import BooksList from './BooksList';
 class HomePage extends Component
 {
 render(){
-  console.log(this.props.selectedBooks);
-  return <div>
+          return (<div>
                     <header className="list-books-title">
                       <h1>MyReads</h1>
                     </header>
@@ -26,8 +25,7 @@ render(){
                       <BooksList books={this.props.selectedBooks.filter(book => book.shelf==='read')}
                                 onBookShelfChange={this.props.onBookShelfChange} />
                     </div>
-                  </div>;
-
+                  </div>);
         }
 }
 export default HomePage
