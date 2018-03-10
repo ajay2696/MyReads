@@ -1,9 +1,13 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import BooksList from './BooksList';
-
+import PropTypes from 'prop-types';
 class HomePage extends Component
 {
+static propTypes={
+  selectedBooks:PropTypes.array.isRequired,
+  onBookShelfChange:PropTypes.func.isRequired
+}
 render(){
           return (<div>
                     <header className="list-books-title">

@@ -2,7 +2,11 @@ import React,{Component} from 'react';
 import BooksList from './BooksList';
 import * as BooksAPI from './BooksAPI';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 class SearchForBook extends Component{
+static propTypes={
+  selectedBooks:PropTypes.array.isRequired
+}
 state={
   searchResultBooks:[]
 }
@@ -10,14 +14,9 @@ SearchForBook=(query)=>{
   if(query ===''){
       this.setState({searchResultBooks:[]});
   } else {
-      const books =BooksAPI.search(query).then((results)=>{
-                                                        console.log(results);
-                                                        if(Array.isArray(results)){
-                                                            this.setState({searchResultBooks:results});
-                                                        } else {
-                                                        this.setState({searchResultBooks:[]});
-                                                        }
-                                              });
+    BooksAPI.search(query).then((results)=>{
+      Array.isArray(results)?this.setState({searchResultBooks:results}):this.setState({searchResultBooks:[]});
+    });
   }
 }
 render(){

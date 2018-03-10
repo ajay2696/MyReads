@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route,Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import './App.css';
 import * as BooksAPI from './BooksAPI';
 import SearchForBook from './SearchForBook';
@@ -15,12 +15,11 @@ class App extends Component {
     let newBook1 =Object.assign({}, book);
     newBook1.shelf=e.target.value;
     BooksAPI.update(book,e.target.value).then(()=>
-                                              {console.log(newBook1);
-                                               this.setState((state) =>(
-                                                              {selectedBooks:state.selectedBooks.filter((b)=>b.id!=book.id ).concat(newBook1)}
-                                                            ));
-                                              });
-
+      {
+        this.setState((state) =>(
+          {selectedBooks:state.selectedBooks.filter((b)=>b.id!==book.id ).concat(newBook1)}
+            ));
+          });
   }
 
   render(){

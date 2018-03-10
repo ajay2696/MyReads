@@ -1,5 +1,10 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 class BooksList extends Component{
+ static propTypes ={
+   books:PropTypes.array.isRequired,
+   onBookShelfChange:PropTypes.func.isRequired
+ }
  render(){
           return (<div>
                    <ul className="books-grid">
