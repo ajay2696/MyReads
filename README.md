@@ -1,4 +1,4 @@
-##Project: My Read Application
+Project: My Read Application
 This project is my reads app, which provides search capability to search books and move books into three book shelf
   - Currently Reading
   - Want to Read
@@ -14,10 +14,10 @@ Below you will find some information on how to perform common tasks.<br>
 - [Supported Browsers](#supported-browsers)
 
 ## Available Scripts
-In the MyReads directory, you can run
+After cloning/downloading project run npm install in MyReads direcotry.
 ### `npm install`
     Above command will install all the required packages and modules
-In the MyReads directory, you can run:
+In MyReads directory, you can run:
 
 ### `npm start`
 
