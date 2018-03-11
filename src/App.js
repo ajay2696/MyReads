@@ -14,8 +14,7 @@ class App extends Component {
  onBookShelfChange=(e,book)=>{
      let newBook1 =Object.assign({}, book);
      newBook1.shelf=e.target.value;
-     BooksAPI.update(book,e.target.value).then(()=>
-     {
+     BooksAPI.update(book,e.target.value).then(()=>{
          this.setState((state) =>(
              {books:state.books.filter((b)=>b.id!==book.id ).concat(newBook1)}
          ));
@@ -23,20 +22,23 @@ class App extends Component {
  }
 
  render(){
-     return (<div className="app">
-         <Route exact path='/'
-             render={()=>(<HomePage selectedBooks={this.state.books}
-                 onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book);}}
-             />)
-             }
-         />
-         <Route path='/search'
-             render={()=>(<SearchForBook selectedBooks={this.state.books}
-                 onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book);}}
-             />)
-             }
-         />
-     </div>
+     return (
+         <div className="app">
+             <Route exact path='/'
+                 render={()=>(
+                     <HomePage selectedBooks={this.state.books}
+                         onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book)}}
+                     />)
+                 }
+             />
+             <Route path='/search'
+                 render={()=>(
+                     <SearchForBook selectedBooks={this.state.books}
+                         onBookShelfChange={(e,book) =>{this.onBookShelfChange(e,book)}}
+                     />)
+                 }
+             />
+         </div>
      );
  }
 }

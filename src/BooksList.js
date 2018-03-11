@@ -5,7 +5,8 @@ const BooksList =(props) => {
         <div>
             <ul className="books-grid">
                 {props.books.map((book) =>{
-                    const bookThumbnail = book.imageLinks ? book.imageLinks.thumbnail :"http://via.placeholder.com/128x193?text=No%20Cover";
+                    const bookThumbnail = book.imageLinks ?
+                        book.imageLinks.thumbnail :"http://via.placeholder.com/128x193?text=No%20Cover";
                     return (
                         <li key={book.id} className="book">
                             <div className="book-top">

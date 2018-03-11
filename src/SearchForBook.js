@@ -16,14 +16,15 @@ SearchForBook=(query)=>{
         this.setState({searchResultBooks:[]});
     } else {
         BooksAPI.search(query).then((results)=>{
-            Array.isArray(results)?this.setState({searchResultBooks:results}):this.setState({searchResultBooks:[]});
+            Array.isArray(results)?
+                this.setState({searchResultBooks:results}):
+                this.setState({searchResultBooks:[]});
         });
     }
 }
 render(){
     const searchResultBooks = this.state.searchResultBooks;
     const selectedBooks = this.props.selectedBooks;
-
     for(let i=0;i<searchResultBooks.length;i++){
         searchResultBooks[i].shelf ='none';
         for(let j=0;j<selectedBooks.length;j++){
