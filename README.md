@@ -1,7 +1,10 @@
+##Project: My Read Application
 This project is my reads app, which provides search capability to search books and move books into three book shelf
   - Currently Reading
   - Want to Read
   - Read
+## Getting Started
+   Prerequisites: This project runs on node environment, Install Node and npm.
 
 Below you will find some information on how to perform common tasks.<br>
 ## Table of Contents
