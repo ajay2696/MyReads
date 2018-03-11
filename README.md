@@ -6,12 +6,15 @@ This project is my reads app, which provides search capability to search books a
 Below you will find some information on how to perform common tasks.<br>
 ## Table of Contents
 - [Installation Scripts](#available-scripts)
+  - [npm install](#npm-install)
   - [npm start](#npm-start)
 - [Supported Browsers](#supported-browsers)
 
 ## Available Scripts
-
-In the project directory, you can run:
+In the MyReads directory, you can run
+### `npm install`
+    Above command will install all the required packages and modules
+In the MyReads directory, you can run:
 
 ### `npm start`
 
